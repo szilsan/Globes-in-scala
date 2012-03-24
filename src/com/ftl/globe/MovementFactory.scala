@@ -3,6 +3,7 @@ import com.ftl.globe.model.Globe
 import scala.collection.mutable.ListBuffer
 import model.Coordinate
 import com.ftl.globe.model.Coordinate
+import com.ftl.globe.model.Coordinate
 
 object MovementFactory {
   def calculateNewPositions(globes: ListBuffer[Globe]) = {
@@ -20,15 +21,22 @@ object MovementFactory {
     // calculate new speed coords (sum of each calculated speed)
     var forceCoord: Coordinate = new Coordinate(globe.coord)
 
-    for (g <- globes) {
-      if (!globes.contains(g)) {
-    	  var force = new Coordinate
-    	  // TODO
-    	  
-    	  forceCoord += force
-      }
-    }
+//    globes.filter(_ != globe).foreach(println _)
 
+    for (g <- globes if (!globes.contains(g))) {
+      val directionVector = globe.prevCoord - g.prevCoord
+      val forceLength = g.measure * globe.measure / Math.pow(directionVector.length, 2)
+
+      val ratio = forceLength / directionVector.length
+      val forceVector = new Coordinate(directionVector.x / ratio, directionVector.y / ratio, directionVector.z / ratio)
+
+      forceCoord +=forceVector
+    }
+    
+    val a = forceCoord.length / globe.measure
+    globe.speed +=a
+    
+    
     // calculate new position (old position + new speed)
 
   }
