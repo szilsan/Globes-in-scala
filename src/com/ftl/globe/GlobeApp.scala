@@ -16,8 +16,8 @@ object GlobeApp extends SwingApplication {
 
   val sleep =50
 
-  globes += new Globe(new Coordinate(0.3,0.2,0), new Coordinate(1, 1, 0))
-  globes += new Globe(new Coordinate(-0.1,-0.2,0), new Coordinate(800, 600, 0))
+  globes += new Globe(new Coordinate(0.3,0.2,0), new Coordinate(320, 200, 0))
+  globes += new Globe(new Coordinate(-0.1,-0.2,0), new Coordinate(350, 220, 0))
 //  globes += new Globe(new Coordinate, new Coordinate(780, 1, 0))
 //  globes += new Globe(new Coordinate, new Coordinate(780, 580, 0))
 
