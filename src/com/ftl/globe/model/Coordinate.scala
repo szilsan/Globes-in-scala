@@ -32,18 +32,15 @@ class Coordinate {
     z -= otherCoord.z
   }
 
-  def -(otherCoord: Coordinate): Coordinate = {
+  def -(otherCoord: Coordinate): Coordinate = 
     new Coordinate(x - otherCoord.x, y - otherCoord.y, z - otherCoord.z)
-  }
 
-  def length: Double = {
+  def length: Double = 
     Math.sqrt(Math.sqrt((Math.pow(Math.abs(x), 2) + Math.pow(Math.abs(y), 2))) + Math.pow(Math.abs(z), 2))
-  }
 
-  def distance(otherPoint: Coordinate): Double = {
+  def distance(otherPoint: Coordinate): Double = 
     (this - otherPoint) length
-  }
 
-  override def toString = { "[x=" + x + ", y=" + y + ", z=" + z + "]" }
+  override def toString = "[x=" + x + ", y=" + y + ", z=" + z + "]"
 
 }

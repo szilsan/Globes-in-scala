@@ -14,12 +14,12 @@ import javax.swing.Timer
 object GlobeApp extends SwingApplication {
   val globes: ListBuffer[Globe] = new ListBuffer[Globe];
 
-  val sleep = 300
+  val sleep =50
 
-  globes += new Globe(new PointingVector(start = new Coordinate, end = new Coordinate), new Coordinate(1, 6, 7))
-  globes += new Globe(new PointingVector(start = new Coordinate, end = new Coordinate), new Coordinate(2, 8, 7))
-  globes += new Globe(new PointingVector(start = new Coordinate, end = new Coordinate), new Coordinate(3, 1, 7))
-  globes += new Globe(new PointingVector(start = new Coordinate, end = new Coordinate), new Coordinate(4, 16, 7))
+  globes += new Globe(new Coordinate(0.3,0.2,0), new Coordinate(1, 1, 0))
+  globes += new Globe(new Coordinate(-0.1,-0.2,0), new Coordinate(800, 600, 0))
+//  globes += new Globe(new Coordinate, new Coordinate(780, 1, 0))
+//  globes += new Globe(new Coordinate, new Coordinate(780, 580, 0))
 
   def top = new GlobePanel
 

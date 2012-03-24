@@ -7,7 +7,7 @@ abstract class Element {
   var coord: Coordinate  
   var prevCoord: Coordinate
   
-  var speed: PointingVector
+  var speed: Coordinate
   
   def rotateCoordToOld = prevCoord = new Coordinate(coord);
 }

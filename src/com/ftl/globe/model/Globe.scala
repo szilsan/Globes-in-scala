@@ -1,6 +1,6 @@
 package com.ftl.globe.model
 
-class Globe(startSpeed: PointingVector = new PointingVector, val startCoord: Coordinate = new Coordinate) extends Element {
+class Globe(startSpeed: Coordinate = new Coordinate, val startCoord: Coordinate = new Coordinate) extends Element {
 
   var speed = startSpeed
   

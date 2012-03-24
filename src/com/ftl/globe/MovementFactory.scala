@@ -11,33 +11,33 @@ object MovementFactory {
     println("calculate...")
 
     // calculate new speed and coord
-    globes.foreach(calculateNewPosition(_, globes));
+    globes.foreach(g => calculate(g, globes.filter(_ != g)))
 
     // calculated coord become prevCoord
     globes.foreach(_.rotateCoordToOld)
+    
+    println("calculated values")
+    globes.foreach(println _)
   }
 
-  private def calculateNewPosition(globe: Globe, globes: ListBuffer[Globe]) = {
-    // calculate new speed coords (sum of each calculated speed)
-    var forceCoord: Coordinate = new Coordinate(globe.coord)
+  private def calculate(globe: Globe, globes: ListBuffer[Globe]) {
+    println(globe)
+    var accCoord: Coordinate = new Coordinate
+    for (g <- globes) {
+      if (g != globe) {
+        val directionVector = g.prevCoord - globe.prevCoord
+        val accLength = g.measure / Math.pow(directionVector.length, 2)
 
-//    globes.filter(_ != globe).foreach(println _)
+        val ratio = accLength / directionVector.length
+        val accVector = new Coordinate(directionVector.x * ratio, directionVector.y * ratio, directionVector.z * ratio)
 
-    for (g <- globes if (!globes.contains(g))) {
-      val directionVector = globe.prevCoord - g.prevCoord
-      val forceLength = g.measure * globe.measure / Math.pow(directionVector.length, 2)
-
-      val ratio = forceLength / directionVector.length
-      val forceVector = new Coordinate(directionVector.x / ratio, directionVector.y / ratio, directionVector.z / ratio)
-
-      forceCoord +=forceVector
+        accCoord += accVector
+      }
     }
-    
-    val a = forceCoord.length / globe.measure
-    globe.speed +=a
-    
-    
+
     // calculate new position (old position + new speed)
+    globe.speed += accCoord
+    globe.coord += globe.speed
 
   }
 }
