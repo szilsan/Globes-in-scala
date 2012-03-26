@@ -1,11 +1,15 @@
 package com.ftl.globe.model
+import java.awt.Color
 
-class Globe(startSpeed: Coordinate = new Coordinate, val startCoord: Coordinate = new Coordinate) extends Element {
+/*
+ * Describe a globe (object in space) 
+ */
+class Globe(startSpeed: Coordinate = new Coordinate, val startCoord: Coordinate = new Coordinate, val paintColor: Color = Color.RED) extends Element {
 
-  var speed = startSpeed
-  
-  var coord = startCoord
-  var prevCoord = startCoord
-  
+  // paiinting color
+  speed = startSpeed
+  coord = startCoord
+  prevCoord = startCoord
+
   override def toString = "Position: " + coord + " Speed: " + speed
 }

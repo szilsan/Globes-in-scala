@@ -32,9 +32,9 @@ class GlobePanel extends Frame {
   }
 
   def doOnPaint(g: Graphics2D) = {
-    g.setColor(Color.RED)
     for (globe <- GlobeApp.globes) {
-    	g.fillOval(globe.coord.x.intValue(), globe.coord.y.intValue(), 3,3)
+    	g.setColor(globe.paintColor)
+    	g.fillOval(globe.coord.x.intValue(), globe.coord.y.intValue(), globe.radius.intValue(), globe.radius.intValue())
     }
   }
 }

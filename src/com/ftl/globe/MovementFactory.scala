@@ -6,9 +6,11 @@ import com.ftl.globe.model.Coordinate
 import com.ftl.globe.model.Coordinate
 
 object MovementFactory {
+  val G = 6.67428E-11
+  
   def calculateNewPositions(globes: ListBuffer[Globe]) = {
     assert(globes != Nil)
-    println("calculate...")
+//    println("calculate...")
 
     // calculate new speed and coord
     globes.foreach(g => calculate(g, globes.filter(_ != g)))
@@ -16,19 +18,19 @@ object MovementFactory {
     // calculated coord become prevCoord
     globes.foreach(_.rotateCoordToOld)
     
-    println("calculated values")
-    globes.foreach(println _)
+//    println("calculated values")
+//    globes.foreach(println _)
   }
 
   private def calculate(globe: Globe, globes: ListBuffer[Globe]) {
-    println(globe)
+//    println(globe)
     var accCoord: Coordinate = new Coordinate
     for (g <- globes) {
       if (g != globe) {
         val directionVector = g.prevCoord - globe.prevCoord
-        val accLength = g.measure / Math.pow(directionVector.length, 2)
+        val forceLength = G * globe.weight * g.weight / Math.pow(directionVector.length, 2)
 
-        val ratio = accLength / directionVector.length
+        val ratio = forceLength / (directionVector.length * globe.weight)
         val accVector = new Coordinate(directionVector.x * ratio, directionVector.y * ratio, directionVector.z * ratio)
 
         accCoord += accVector
