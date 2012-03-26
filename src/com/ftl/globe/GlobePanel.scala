@@ -10,7 +10,7 @@ import java.awt.Dimension
 class GlobePanel extends Frame {
   val windowSizeX = 800
   val windowSizeY = 600
- 
+
   title = "Globe app"
 
   contents = new Panel {
@@ -33,8 +33,8 @@ class GlobePanel extends Frame {
 
   def doOnPaint(g: Graphics2D) = {
     for (globe <- GlobeApp.globes) {
-    	g.setColor(globe.paintColor)
-    	g.fillOval(globe.coord.x.intValue(), globe.coord.y.intValue(), globe.radius.intValue(), globe.radius.intValue())
+      g.setColor(globe.paintColor)
+      g.fillOval(globe.coord.x.intValue(), globe.coord.y.intValue(), globe.radius.intValue() * 2, globe.radius.intValue() * 2)
     }
   }
 }

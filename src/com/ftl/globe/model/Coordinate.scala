@@ -34,9 +34,15 @@ class Coordinate {
 
   def -(otherCoord: Coordinate): Coordinate = 
     new Coordinate(x - otherCoord.x, y - otherCoord.y, z - otherCoord.z)
+  
+  def +(otherCoord: Coordinate): Coordinate = 
+    new Coordinate(x + otherCoord.x, y + otherCoord.y, z + otherCoord.z)
+  
+  def *(gain:Double): Coordinate = 
+    new Coordinate(x*gain, y * gain, z * gain)
 
   def length: Double = 
-    Math.sqrt(Math.sqrt((Math.pow(Math.abs(x), 2) + Math.pow(Math.abs(y), 2))) + Math.pow(Math.abs(z), 2))
+    Math.sqrt(Math.pow(Math.abs(x), 2) + Math.pow(Math.abs(y), 2) + Math.pow(Math.abs(z), 2))
 
   def distance(otherPoint: Coordinate): Double = 
     (this - otherPoint) length

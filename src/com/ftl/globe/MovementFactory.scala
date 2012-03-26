@@ -4,26 +4,33 @@ import scala.collection.mutable.ListBuffer
 import model.Coordinate
 import com.ftl.globe.model.Coordinate
 import com.ftl.globe.model.Coordinate
+import com.sun.xml.internal.bind.v2.util.CollisionCheckStack
+import model.Globe
+import java.awt.Color
 
 object MovementFactory {
   val G = 6.67428E-11
-  
+
   def calculateNewPositions(globes: ListBuffer[Globe]) = {
-    assert(globes != Nil)
-//    println("calculate...")
+    require(globes != Nil)
+    
+    // detect collisions
+    var coll = false
+    do {
+      coll = false
+      for (g <- globes if !coll) {
+        coll = detectCollisions(g, globes)
+      }
+    } while (coll)
 
     // calculate new speed and coord
     globes.foreach(g => calculate(g, globes.filter(_ != g)))
 
     // calculated coord become prevCoord
     globes.foreach(_.rotateCoordToOld)
-    
-//    println("calculated values")
-//    globes.foreach(println _)
   }
 
   private def calculate(globe: Globe, globes: ListBuffer[Globe]) {
-//    println(globe)
     var accCoord: Coordinate = new Coordinate
     for (g <- globes) {
       if (g != globe) {
@@ -40,6 +47,23 @@ object MovementFactory {
     // calculate new position (old position + new speed)
     globe.speed += accCoord
     globe.coord += globe.speed
+  }
 
+  private def detectCollisions(globe: Globe, globes: ListBuffer[Globe]) = {
+    var isCollision = false
+    for (g <- globes.filter(_ != globe) if !isCollision) {
+      isCollision = (g.radius + globe.radius) >= g.coord.distance(globe.coord)
+
+      // merge two objects
+      if (isCollision) {
+        println("collision")
+        var gNew = g + globe
+        globes -= g
+        globes -= globe
+        globes += gNew
+        println(gNew)
+      }
+    }
+    isCollision
   }
 }

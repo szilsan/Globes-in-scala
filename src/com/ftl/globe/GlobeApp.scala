@@ -15,7 +15,7 @@ import java.awt.Color
 object GlobeApp extends SwingApplication {
   val globes: ListBuffer[Globe] = new ListBuffer[Globe];
 
-  val sleep =0
+  val sleep = 0
 
   val globe1 = new Globe(new Coordinate(0.05, 0.02, 0), new Coordinate(320, 200, 0), Color.RED)
   globe1.radius = 4
